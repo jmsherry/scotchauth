@@ -19,7 +19,8 @@ const redisStore = require('connect-redis')(session);
 const {
   MONGODB_URI,
   PORT,
-  REDIS_URL
+  REDIS_URL,
+  SESSION_SECRET
 } = process.env;
 
 // configuration ===============================================================
@@ -42,9 +43,16 @@ app.set('view engine', '.hbs');
 
 // required for passport
 app.use(session({
-  secret: 'ilovescotchscotchyscotchscotch',
-  store: new redisStore({ host: REDIS_URL, port: 6379, client,
-  ttl :  260}),
+  secret: SESSION_SECRET,
+  cookie: { maxAge: 60000 },
+  // store: new redisStore({ 
+  //   host: REDIS_URL,
+  //   port: 6379,
+  //   client,
+  //   ttl :  260,
+  //   resave: false, 
+  //   saveUninitialized: false
+  // }),
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
