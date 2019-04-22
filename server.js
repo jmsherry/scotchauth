@@ -6,7 +6,6 @@ const express  = require('express');
 const app      = express();
 const mongoose = require('mongoose');
 const redis = require('redis');
-const client  = redis.createClient();
 const passport = require('passport');
 const flash    = require('connect-flash');
 const exphbs = require('express-handlebars');
@@ -22,6 +21,8 @@ const {
   REDIS_URL,
   SESSION_SECRET
 } = process.env;
+
+const redisClient  = redis.createClient(REDIS_URL);
 
 // configuration ===============================================================
 mongoose.promise = global.Promise
@@ -45,14 +46,12 @@ app.set('view engine', '.hbs');
 app.use(session({
   secret: SESSION_SECRET,
   cookie: { maxAge: 60000 },
-  // store: new redisStore({ 
-  //   host: REDIS_URL,
-  //   port: 6379,
-  //   client,
-  //   ttl :  260,
-  //   resave: false, 
-  //   saveUninitialized: false
-  // }),
+  store: new redisStore({
+    client,
+    ttl :  260
+  }),
+    resave: false, 
+    saveUninitialized: false
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
