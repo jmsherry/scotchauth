@@ -39,7 +39,7 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 app.engine('.hbs', exphbs());
-app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/views');
 app.set('view engine', '.hbs');
 
 // required for passport
