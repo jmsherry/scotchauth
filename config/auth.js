@@ -11,7 +11,7 @@ const {
 module.exports = {
 
     facebookAuth : {
-        'clientID'        : FACEBOOK_CLIENT_ID //'1832132633772519', // your App ID
+        'clientID'        : FACEBOOK_CLIENT_ID, //'1832132633772519', // your App ID
         'clientSecret'    : FACEBOOK_CLIENT_SECRET, // your App Secret
         'callbackURL'     : 'http://localhost:8080/auth/facebook/callback',
         'profileURL': 'https://graph.facebook.com/v2.5/me?fields=first_name,last_name,email'
