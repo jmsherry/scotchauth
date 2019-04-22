@@ -47,11 +47,11 @@ app.use(session({
   secret: SESSION_SECRET,
   cookie: { maxAge: 60000 },
   store: new redisStore({
-    client,
+    client: redisClient,
     ttl :  260
   }),
-    resave: false, 
-    saveUninitialized: false
+  resave: false, 
+  saveUninitialized: false
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
