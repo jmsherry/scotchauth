@@ -16,8 +16,8 @@ const session      = require('express-session');
 const redisStore = require('connect-redis')(session);
 
 const {
-  MONGODB_URI,
-  PORT,
+  MONGODB_URI='mongodb://localhost/my_db',
+  PORT=3000,
   REDIS_URL,
   SESSION_SECRET
 } = process.env;
