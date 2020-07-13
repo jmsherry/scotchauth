@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const { inspect } = require("util");
 // set up ======================================================================
 // get all the tools we need
 const express = require("express");
@@ -63,6 +63,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
+app.use((req, res, next) => {
+  console.log("Cookies (unsigned):", inspect(req.cookies));
+  // console.log("Cookies (signed):", inspect(req.signedCookies));
+  console.log("Session:", req.session);
+  console.log("User:", req.user);
+  next();
+});
 
 // routes ======================================================================
 require("./app/routes.js")(app, passport); // load our routes and pass in our app and fully configured passport
